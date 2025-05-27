@@ -5,7 +5,7 @@
                 <canvas ref="streetCanvas" :width="canvasWidth" :height="canvasHeight" @mousedown="startDrag"
                     @mousemove="drag" @mouseup="stopDrag" @mouseleave="stopDrag"></canvas>
 
-                <div v-for="(div, index) in divs" :key="index" class="overlayDiv"
+                <div v-for="(div, index) in equipments" :key="index" class="overlayDiv"
                     :style="{ left: `${div.left}%`, top: `${div.top}%`, transform: `translate(${offsetX}px, ${offsetY}px)` }">
                     <div class="box">
                         <img :src="div.img"
@@ -14,9 +14,6 @@
                         <img :src="div.img2" style="width: 6.57vw;height: 4.5vw;position: absolute;"
                             @click="openDialog()">
                         <div class="particles" style="width: 6.57vw;height: 4.5vw;">
-                            <span></span>
-                            <span></span>
-                            <span></span>
                             <span></span>
                             <span></span>
                             <span></span>
@@ -182,7 +179,7 @@
                 <div
                     style="background: url('src/assets/imgs/边框左.png') no-repeat;background-size: 100% 100%;height: 33.3%;padding: 1vw;">
                     <div style="font-size: 0.9vw;font-weight: bold;color: aquamarine;">
-                        <img src="../assets/imgs/球.png" style="width: 10%;vertical-align: middle;">
+                        <img src="../assets/imgs/用电量.png" style="width: 8%;vertical-align: middle;">&nbsp;
                         <span>用能趋势</span>
                     </div>
                     <div id="energyBar" class="w100 h80"></div>
@@ -190,7 +187,7 @@
                 <div
                     style="background: url('src/assets/imgs/边框左.png') no-repeat;background-size: 100% 100%;height: 33.3%;padding: 1vw;">
                     <div style="font-size: 0.9vw;font-weight: bold;color: aquamarine;">
-                        <img src="../assets/imgs/球.png" style="width: 10%;vertical-align: middle;">
+                        <img src="../assets/imgs/保温生成.png" style="width: 8%;vertical-align: middle;">&nbsp;
                         <span>热输入趋势</span>
                     </div>
                     <div id="heatInputLine" class="w100 h80"></div>
@@ -203,7 +200,7 @@
                 <div
                     style="background: url('src/assets/imgs/边框右.png') no-repeat;background-size: 100% 100%;height: 33.3%;padding: 1vw;">
                     <div style="font-size: 0.9vw;font-weight: bold;color: aquamarine;">
-                        <img src="../assets/imgs/球.png" style="width: 10%;vertical-align: middle;">
+                        <img src="../assets/imgs/设备利用率.png" style="width: 7%;vertical-align: middle;">&nbsp;
                         <span>设备利用率</span>
                     </div>
                     <div id="efficiencyLine" class="w100 h80"></div>
@@ -211,7 +208,7 @@
                 <div
                     style="background: url('src/assets/imgs/边框右.png') no-repeat;background-size: 100% 100%;height: 33.3%;padding: 1vw;">
                     <div style="font-size: 0.9vw;font-weight: bold;color: aquamarine;">
-                        <img src="../assets/imgs/球.png" style="width: 10%;vertical-align: middle;">
+                        <img src="../assets/imgs/产能.png" style="width: 8%;vertical-align: middle;">&nbsp;
                         <span>UPH</span>
                     </div>
                     <div id="UPHBar" class="w100 h80"></div>
@@ -219,7 +216,7 @@
                 <div
                     style="background: url('src/assets/imgs/边框右.png') no-repeat;background-size: 100% 100%;height: 33.3%;padding: 1vw;">
                     <div style="font-size: 0.9vw;font-weight: bold;color: aquamarine;">
-                        <img src="../assets/imgs/球.png" style="width: 10%;vertical-align: middle;">
+                        <img src="../assets/imgs/实时报警.png" style="width: 9%;vertical-align: middle;">&nbsp;
                         <span>实时报警</span>
                     </div>
                     <el-table height="80%" :data="componentsList" border="1" style="width: 99%;font-size: 0.7vw;"
@@ -233,8 +230,8 @@
         </div>
 
         <el-dialog v-model="dialogVisible" :modal="false">
-            <div style="color: #ffffff;height: 100%;font-size: 1vw;">
-                <div style="border-bottom: 2px solid skyblue;padding-bottom: 10px;margin: 0 5px;height: 10%;">
+            <div style="color: #ffffff;height: 100%;font-size: 0.9vw;">
+                <div style="border-bottom: 2px solid skyblue;padding-bottom: 0.5vw;margin: 0 5px;height: 3%;">
                     <div style="display: inline-block;width: 50%;">
                         設備視覺化
                     </div>
@@ -242,7 +239,7 @@
                         {{ currTime }}
                     </div>
                 </div>
-                <div style="padding: 20px 0;margin: 0 5px;height: 10%;">
+                <div style="padding: 0.9vw 0;margin: 0 5px;height: 3%;">
                     <div style="display: inline-block;width: 50%;">
                         <div style="display: inline-block;">今日產量&nbsp;10&nbsp;件</div>
                         <div style="display: inline-block;margin-left: 2%;">本週產量&nbsp;10&nbsp;件</div>
@@ -250,63 +247,57 @@
                         <div style="display: inline-block;margin-left: 2%;">年度產量&nbsp;10&nbsp;件</div>
                     </div>
                     <div style="display: inline-block;width: 50%;text-align: right;">
-                        <el-button type="primary" @click="search()">警報訊息</el-button>
-                        <el-button type="primary" @click="search()">數據統計</el-button>
+                        <el-button type="primary" @click="search()" style="padding: 0.1vw 0.6vw;">警報訊息</el-button>
+                        <el-button type="primary" @click="search()" style="padding: 0.1vw 0.6vw;">數據統計</el-button>
                     </div>
                 </div>
-                <el-row style="height:25vw;">
+                <el-row style="height: 56%;">
                     <el-col :span="10">
                         <div
                             style="background: url('src/assets/imgs/bk2.png') no-repeat;background-size: 100% 100%;height: 100%;width: 100%;">
                             <div style="padding: 5% 0 0 5%;">機械手臂</div>
-                            <div style="padding: 2% 0 0 5%;">目前設備運作狀態</div>
-                            <div style="text-align: center;margin: 10% 0;">
-                                <img src="../assets/imgs/机械臂.png" style="width: 50%;">
-                                <div style="position: relative;">
-                                    <div class="info" style="top: -10vw;left: 2vw;font-size: 0.6vw;">
-                                        <table style="text-align: center;width: 100%;color: #F5F5DC;">
-                                            <tbody>
-                                                <tr>
-                                                    <td colspan="2" style="font-weight: bold;color: #ffffff;">
-                                                        MK-7-020
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>焊接电压</td>
-                                                    <td style="color: dodgerblue;">220V</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>焊接电流</td>
-                                                    <td>20A</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>基准电压</td>
-                                                    <td>200-220V</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>基准电流</td>
-                                                    <td>10A-20A</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>送线速度</td>
-                                                    <td>10A-20A</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>JOB号</td>
-                                                    <td>/</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>型号</td>
-                                                    <td>22</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>热输入</td>
-                                                    <td>22</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                            <div style="padding: 2% 0 0 5%;">
+                                <span>目前設備運作狀態</span>
+                                <div
+                                    style="display: inline-block; height: 1.1vw;width: 1.1vw;border-radius: 50%;background-color: green;vertical-align: middle;margin-left: 1vw;">
                                 </div>
+                            </div>
+                            <div style="text-align: center;padding-top: 5%;">
+                                <img src="../assets/imgs/hjsb.png" style="width: 70%;">
+                                <div class="info2" style="width: 100%;">
+                                    <div style="display: inline-block;width: 12vw;">
+                                        <el-row>
+                                            <el-col :span="24" class="colTitle"
+                                                style="text-align: center;">MK-7-020</el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="6">焊接电压</el-col>
+                                            <el-col :span="6" class="colCss">220V</el-col>
+                                            <el-col :span="6">焊接电流</el-col>
+                                            <el-col :span="6" class="colCss">20A</el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="6">基准电压</el-col>
+                                            <el-col :span="6" class="colCss">200-220V</el-col>
+                                            <el-col :span="6">基准电流</el-col>
+                                            <el-col :span="6" class="colCss">10A-20A</el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="6">送线速度</el-col>
+                                            <el-col :span="6" class="colCss">10A-20A</el-col>
+                                            <el-col :span="6">JOB号</el-col>
+                                            <el-col :span="6" class="colCss">/</el-col>
+                                        </el-row>
+                                        <el-row>
+                                            <el-col :span="6">型号</el-col>
+                                            <el-col :span="6" class="colCss">9000</el-col>
+                                            <el-col :span="6">热输入</el-col>
+                                            <el-col :span="6" class="colCss">22</el-col>
+                                        </el-row>
+                                    </div>
+
+                                </div>
+
                             </div>
                         </div>
 
@@ -332,7 +323,7 @@
                         </div>
                     </el-col>
                 </el-row>
-                <div style="height: 13vw;">
+                <div style="height: 30%;">
                     <el-table height="100%" :data="componentsList" :border="true"
                         style="width: 99%;margin: 1% 0 0 5px;font-size: 0.7vw;" highlight-current-row>
                         <el-table-column prop="name" label="报警描述" align="center" />
@@ -355,9 +346,8 @@ import * as echarts from "echarts";
 import { ref } from "vue";
 
 const componentsList = ref([{ "name": "支架贴片-左", "spec": "T=1.0mm HC600/900QP", "qty": 1, "a": 1, "b": 1 },
-{ "name": "支架贴片-左", "spec": "T=1.0mm HC600/900QP", "qty": 1, "a": 1, "b": 1 }, { "name": "支架贴片-左", "spec": "T=1.0mm HC600/900QP", "qty": 1, "a": 1, "b": 1 }, { "name": "支架贴片-左", "spec": "T=1.0mm HC600/900QP", "qty": 1, "a": 1, "b": 1 }, { "name": "支架贴片-左", "spec": "T=1.0mm HC600/900QP", "qty": 1, "a": 1, "b": 1 }])
-const rawData = ref([]);
-const dept = ref(null);
+{ "name": "支架贴片-左", "spec": "T=1.0mm HC600/900QP", "qty": 1, "a": 1, "b": 1 }, { "name": "支架贴片-左", "spec": "T=1.0mm HC600/900QP", "qty": 1, "a": 1, "b": 1 },
+{ "name": "支架贴片-左", "spec": "T=1.0mm HC600/900QP", "qty": 1, "a": 1, "b": 1 }, { "name": "支架贴片-左", "spec": "T=1.0mm HC600/900QP", "qty": 1, "a": 1, "b": 1 }]);
 const category = ref(["1:00", "2:00", "3:00", "4:00", "5:00", "6:00", "7:00"]);
 const humiArr = ref([1, 9, 5, 8, 2, 6, 0]);
 const humiArr2 = ref([3, 6, 7, 8, 8, 1, 0]);
@@ -376,7 +366,7 @@ const streetCanvas = ref(null);
 const canvasWidth = ref(0);
 const canvasHeight = ref(0);
 const scale = ref(1);
-const divs = reactive([
+const equipments = reactive([
     { left: 26, top: 19, left2: -75, top2: -150, img: 'src/assets/imgs/东南朝向.png', imgWidth: 4.4, imgheight: 4, imgLeft: 35, imgTop: -10, img2: 'src/assets/imgs/運行狀態框.png' },
     { left: 18.5, top: 28, left2: -75, top2: -150, img: 'src/assets/imgs/东南朝向.png', imgWidth: 4.4, imgheight: 4, imgLeft: 35, imgTop: -10, img2: 'src/assets/imgs/運行狀態框.png' },
     { left: 11, top: 37, left2: -75, top2: -150, img: 'src/assets/imgs/东南朝向.png', imgWidth: 4.4, imgheight: 4, imgLeft: 35, imgTop: -10, img2: 'src/assets/imgs/運行狀態框.png' },
@@ -403,9 +393,17 @@ const divs = reactive([
     { left: 58, top: 88, left2: -100, top2: 60, img: 'src/assets/imgs/東北2.png', imgWidth: 5.333, imgheight: 4, imgLeft: 20, imgTop: 0, img2: 'src/assets/imgs/運行狀態框.png' },
 ]);
 
+const devices = reactive([
+    { mid: "R1", machineStatus: 0, current: 220, voltage: 0, wireFeedSpeed: 0, robotSpeed: 0, },
+    { mid: "R1", machineStatus: 0, current: 220, voltage: 0, wireFeedSpeed: 0, robotSpeed: 0, },
+    { mid: "R1", machineStatus: 0, current: 220, voltage: 0, wireFeedSpeed: 0, robotSpeed: 0, },
+    { mid: "R1", machineStatus: 0, current: 220, voltage: 0, wireFeedSpeed: 0, robotSpeed: 0, },
+    { mid: "R1", machineStatus: 0, current: 220, voltage: 0, wireFeedSpeed: 0, robotSpeed: 0, }
+])
+
 onMounted(() => {
     setInterval(getCurrTime, 1000);
-    search();
+    //search();
     showUPHBarChart(["08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "18:00"], [5, 20, 36, 10, 10, 20]);
     showEfficiencyLineChart(category.value, humiArr.value, humiArr2.value);
     showHeatInputLineChart(category.value, [1, 3, 4, 8, 9]);
@@ -415,9 +413,25 @@ onMounted(() => {
     setTimeout(() => {
         render();
         updateScale();
-    }, 100);
+        // 监听窗口大小变化
+        window.addEventListener("resize", handleResize);
+    }, 10);
 
 });
+
+const search = () => {
+    service.get("http://localhost:45989/api/v1/WeldingProcess/GetDevice", { WA: "BP" }).then(res => {
+        //console.log("res.data", res.data);
+        if (res != null && res != undefined && res.data != null && res.data != undefined) {
+
+        } else {
+            return;
+        }
+        //console.log("详细数据:", rawData.value);
+    }).catch(error => {
+        console.error("GetDevice方法的数据获取失败:", error);
+    });
+};
 
 // 平移偏移量
 const offsetX = ref(0);
@@ -439,16 +453,27 @@ const setCanvasSize = () => {
     canvasWidth.value = canvasDiv.offsetWidth;
     canvasHeight.value = canvasDiv.offsetHeight;
 
-    //1900
-    //899
-    console.log(canvasWidth.value);
-    console.log(canvasHeight.value);
-    console.log(canvasWidth.value / canvasHeight.value);
+    // 获取浏览器视口的宽度和高度
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    const scaleX = canvasWidth.value / viewportWidth;
+    const scaleY = canvasHeight.value / viewportHeight;
+
+    scale.value = Math.min(scaleX, scaleY) + 0.5;
+
+    console.log(`视口宽度：${viewportWidth}`);
+    console.log(`视口高度：${viewportHeight}`);
+    console.log(`比例：${scale.value}`);
 };
 
 // 绘制街道
 const drawStreet = (ctx, centerX, centerY, width, height, angle, color, shadowColor) => {
     ctx.save(); // 保存画布状态
+
+    // 按比例调整街道尺寸
+    //width *= scale.value;
+    //height *= scale.value;
 
     // 移动到旋转中心
     ctx.translate(centerX, centerY);
@@ -463,7 +488,6 @@ const drawStreet = (ctx, centerX, centerY, width, height, angle, color, shadowCo
 
 // 渲染函数
 const render = () => {
-
     const canvas = streetCanvas.value;
     const ctx = canvas.getContext("2d");
 
@@ -475,13 +499,17 @@ const render = () => {
     ctx.save();
     ctx.translate(offsetX.value, offsetY.value);
 
+    // 动态计算中心点位置
+    const centerX = canvasWidth.value / 2;
+    const centerY = canvasHeight.value / 2;
+
     // 绘制街道1
     drawStreet(
         ctx,
-        canvasWidth.value / 2 - 425, // 中心点X
-        canvasHeight.value / 2 - 125, // 中心点Y
-        vLineLength,
-        streetWidth,
+        centerX - 425 * scale.value, // 中心点X
+        centerY - 125 * scale.value, // 中心点Y
+        vLineLength * scale.value,
+        streetWidth * scale.value,
         (150 * Math.PI) / 180,
         "#1e3f70", // 街道颜色
         "#404040" // 阴影颜色
@@ -490,10 +518,10 @@ const render = () => {
     // 纵向街道2
     drawStreet(
         ctx,
-        canvasWidth.value / 2 + 500, // 中心点X
-        canvasHeight.value / 2 + 455, // 中心点Y
-        vLineLength,
-        streetWidth,
+        centerX + 500 * scale.value, // 中心点X
+        centerY + 455 * scale.value, // 中心点Y
+        vLineLength * scale.value,
+        streetWidth * scale.value,
         (145 * Math.PI) / 180,
         "#1e3f70", // 街道颜色
         "#404040" // 阴影颜色
@@ -502,30 +530,30 @@ const render = () => {
     // 横向街道
     drawStreet(
         ctx,
-        canvasWidth.value / 2 + 475, // 中心点X
-        canvasHeight.value / 2 - 125, // 中心点Y
-        hLineLength,
-        streetWidth,
+        centerX + 475 * scale.value, // 中心点X
+        centerY - 125 * scale.value, // 中心点Y
+        hLineLength * scale.value,
+        streetWidth * scale.value,
         (26 * Math.PI) / 180,
         "#1e3f70", // 街道颜色
         "#404040" // 阴影颜色
     );
     drawStreet(
         ctx,
-        canvasWidth.value / 2 + 100, // 中心点X
-        canvasHeight.value / 2 + 125, // 中心点Y
-        hLineLength,
-        streetWidth,
+        centerX + 100 * scale.value, // 中心点X
+        centerY + 125 * scale.value, // 中心点Y
+        hLineLength * scale.value,
+        streetWidth * scale.value,
         (30 * Math.PI) / 180,
         "#1e3f70", // 街道颜色
         "#404040" // 阴影颜色
     );
     drawStreet(
         ctx,
-        canvasWidth.value / 2 - 260, // 中心点X
-        canvasHeight.value / 2 + 355, // 中心点Y
-        hLineLength,
-        streetWidth,
+        centerX - 240 * scale.value, // 中心点X
+        centerY + 340 * scale.value, // 中心点Y
+        hLineLength * scale.value,
+        streetWidth * scale.value,
         (33 * Math.PI) / 180,
         "#1e3f70", // 街道颜色
         "#404040" // 阴影颜色
@@ -533,9 +561,6 @@ const render = () => {
 
     // 恢复画布状态
     ctx.restore();
-
-    // 监听窗口大小变化
-    window.addEventListener("resize", handleResize);
 };
 
 // 鼠标事件
@@ -550,8 +575,8 @@ const drag = (e) => {
         const dx = e.clientX - lastMouseX;
         const dy = e.clientY - lastMouseY;
 
-        offsetX.value += dx;
-        offsetY.value += dy;
+        offsetX.value += dx * scale.value;
+        offsetY.value += dy * scale.value;
 
         lastMouseX = e.clientX;
         lastMouseY = e.clientY;
@@ -573,40 +598,6 @@ const handleOpen = () => {
 
 }
 
-const search = () => {
-    rawData.value = [];
-    service.get("http://10.9.0.12:1880/GetConfigForTH", {
-        params: {
-            WA: "BP",
-            Dept: dept.value
-        }
-    }).then(res => {
-        //console.log("res.DATA", res.DATA);
-        let tempData = [];
-        if (res.length > 0) {
-            tempData = res[0].DATA;
-        }
-        else {
-            return;
-        }
-        //console.log("过滤后的数据:", tempData);
-        tempData.forEach(item => {
-            let param = item.Location.MID;
-            //console.log("param",param)
-            service.get("http://10.9.0.12:1880/GetTHRealtime?Location=" + param).then(res => {
-                if (res && res.Location) {
-                    rawData.value.push(res);
-                }
-            }).catch(error => {
-                //console.error(param + "数据获取失败:", error);
-            });
-        });
-        //console.log("详细数据:", rawData.value);
-    }).catch(error => {
-        //console.error("数据获取失败:", error);
-    });
-};
-
 const openDialog = () => {
     dialogVisible.value = true;
     showEfficiencyLineChart2(category.value, humiArr.value, humiArr2.value);
@@ -614,47 +605,6 @@ const openDialog = () => {
     showMTBarChart(["8/1", "8/2", "8/3", "8/4", "8/5"], [5, 20, 36, 10, 6], [8, 70, 16, 12, 9]);
     showGanttChart("StateGantt");
 }
-
-const getDailyData = mid => {
-    console.log("mid=", mid);
-    var category = [];
-    var humiArr = [];
-    var tempArr = [];
-    // 生成今日0点时间
-    const todayStart = new Date();
-    todayStart.setHours(0, 0, 0, 0);
-
-    // 生成明日0点时间
-    const tomorrowStart = new Date(todayStart);
-    tomorrowStart.setDate(todayStart.getDate() + 1);
-
-    service.get("http://10.9.0.12:1880/GetTHShorthistoryForTH", {
-        params: {
-            Location: mid,
-            TimeB: formatDateTime(todayStart),
-            TimeE: formatDateTime(tomorrowStart)
-        }
-    }).then(res => {
-        var hisTemp = [];
-
-        if (res.Time && res.Time.length) {
-            for (var i = 0; i < res.Time.length; i++) {
-                hisTemp.push({
-                    Time: res.Time[i],
-                    Humi: res.Humi[i],
-                    Temp: res.Temp[i]
-                });
-            }
-            hisTemp = filterHourlyData(hisTemp);
-            category = hisTemp.map(item => item.Hour);
-            humiArr = hisTemp.map(item => item.Humi);
-            tempArr = hisTemp.map(item => item.Temp);
-            showChart(category, humiArr, tempArr);
-        }
-    }).catch(error => {
-        console.error("数据获取失败:", error);
-    });
-};
 
 //設備利用率折线图
 const showEfficiencyLineChart = (category, humiArr, humiArr2) => {
@@ -1508,29 +1458,21 @@ const updateScale = () => {
     const container = streetCanvas.value;
     if (container) {
         var canvasDiv = document.getElementById("canvasDiv");
-        //canvasWidth.value = canvasDiv.offsetWidth;
-        //canvasHeight.value = canvasDiv.offsetHeight;
-        const containerWidth = canvasWidth.value; // 设计稿的宽度
-        const containerHeight = canvasHeight.value; // 设计稿的高度
+        canvasWidth.value = canvasDiv.offsetWidth;
+        canvasHeight.value = canvasDiv.offsetHeight;
 
-        const scaleX = (canvasDiv.offsetWidth) / containerWidth;
-        const scaleY = (canvasDiv.offsetHeight) / containerHeight;
+        const scaleX = canvasWidth.value / 1920; // 基准宽度为 1920
+        const scaleY = canvasHeight.value / 800; // 基准高度为 800
 
         // 取最小比例，保持等比缩放
         scale.value = Math.min(scaleX, scaleY);
 
-        //container.style.transform = `scale(${scale.value})`;
-        //container.style.transformOrigin = 'top left';
-        // 设置 canvas 的实际分辨率
-        //container.width = canvasDiv.offsetWidth - 20;
-        //container.height = canvasDiv.offsetWidth - 10;
-
-        // 居中对齐
-        //container.style.left = `${(window.innerWidth - containerWidth * scale) / 2}px`;
-        //container.style.top = `${(window.innerHeight - containerHeight * scale) / 2}px`;
         container.style.position = 'absolute';
 
-        render();
+        setTimeout(() => {
+            render();
+        }, 1);
+
     }
 };
 
@@ -1691,21 +1633,6 @@ canvas:active {
     animation-delay: 1.8s;
 }
 
-.particles span:nth-child(11) {
-    left: 35%;
-    animation-delay: 2s;
-}
-
-.particles span:nth-child(12) {
-    left: 55%;
-    animation-delay: 2.2s;
-}
-
-.particles span:nth-child(13) {
-    left: 75%;
-    animation-delay: 2.4s;
-}
-
 /* 粒子动画 */
 @keyframes particle-move {
     0% {
@@ -1801,6 +1728,17 @@ canvas:active {
     /* 禁止鼠标事件 */
 }
 
+.info2 {
+    font-size: 0.5vw;
+    padding: 5px;
+    text-align: center;
+    line-height: 0.8vw;
+    width: 6vw;
+    color: #f1e7e7;
+    pointer-events: none;
+    /* 禁止鼠标事件 */
+}
+
 .colTitle {
     text-align: left;
     font-weight: bold;
@@ -1839,6 +1777,10 @@ canvas:active {
     text-align: left;
     color: #ffffff;
 
+}
+
+:deep(.el-dialog__body) {
+    height: 100%;
 }
 
 .f18 {
@@ -1907,6 +1849,14 @@ canvas:active {
 :deep(.el-table) {
     background-color: transparent !important;
     border: 1px solid skyblue !important;
+}
+
+:deep(.el-table .cell) {
+    line-height: 1vw;
+}
+
+:deep(.el-table .el-table__cell) {
+    padding: 0.5vw 0;
 }
 
 /* 设置el-table-body的背景色为透明，以确保整个表格背景都是透明的 */
